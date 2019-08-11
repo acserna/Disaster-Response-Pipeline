@@ -44,7 +44,12 @@ def index():
     genre_names = list(genre_counts.index)
     
     # create visuals
-    # TODO: Below is an example - modify to create your own visuals
+    top_category_count = df.iloc[:,4:].sum().sort_values(ascending=False)[1:6]
+    top_category_names = list(top_category_count.index)
+
+    no_top_category_count = df.iloc[:,4:].sum().sort_values(ascending=False)[-6:]
+    no_top_category_names = list(no_top_category_count.index)
+
     graphs = [
         {
             'data': [
@@ -61,6 +66,42 @@ def index():
                 },
                 'xaxis': {
                     'title': "Genre"
+                }
+            }
+        },
+        {
+            'data': [
+                Bar(
+                    x=top_category_names,
+                    y=top_category_count
+                )
+            ],
+
+            'layout': {
+                'title': 'Top Five Categories',
+                'yaxis': {
+                    'title': "Count"
+                },
+                'xaxis': {
+                    'title': "Categories"
+                }
+            }
+        },
+        {
+            'data': [
+                Bar(
+                    x=no_top_category_names,
+                    y=no_top_category_count
+                )
+            ],
+
+            'layout': {
+                'title': 'Last Five Categories',
+                'yaxis': {
+                    'title': "Count"
+                },
+                'xaxis': {
+                    'title': "Categories"
                 }
             }
         }
