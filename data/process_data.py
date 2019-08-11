@@ -1,16 +1,31 @@
 import sys
 
+import pandas as pd
 
 def load_data(messages_filepath, categories_filepath):
-    pass
-
+    messages = pd.read_csv(messages_filepath)
+    categories = pd.read_csv(categories_filepath)
+    df = messages.merge(categories, on="id")
+    return df
 
 def clean_data(df):
-    pass
+    categories = df.categories.str.split(";", expand=True)
+    row = categories.iloc[0]
+    category_colnames = row.apply(lambda x: x[:-2])
+    categories.columns = category_colnames
 
+    for column in categories:
+        categories[column] = categories[column].apply(lambda x: x[-1])
+        categories[column] = categories[column].astype('int64')
+
+    df.drop("categories", axis=1, inplace=True)
+    df = pd.concat([df, categories], axis=1)
+    return df
 
 def save_data(df, database_filename):
-    pass  
+    from sqlalchemy import create_engine
+    engine = create_engine('sqlite:///%s'%(database_filename))
+    df.to_sql('Messages', engine, index=False)
 
 
 def main():
