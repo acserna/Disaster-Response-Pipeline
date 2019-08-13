@@ -1,5 +1,11 @@
 # Disaster Response Pipeline Project
 
+It's a project in which we can classify several types of messages that appear during the time of a disaster, some of that types are: infrastructure, security, water, hospitals, first-aid, and many more.
+
+Aditionally, we have the posibility to clean our messages (wrote by people during a disaster) and the categories (types of needs to cover), and later create a machine learning model to classify new emergency messages.
+
+The application is developed using the Flask framework.
+
 ### Instructions:
 1. Run the following command to install all the dependencies of the project.
     - `pip install -r requirements.txt`
@@ -14,3 +20,7 @@
     `python run.py`
 
 4. Go to http://0.0.0.0:3001/
+
+### Application image:
+
+![Application image](app.png?raw=true "Application image")
